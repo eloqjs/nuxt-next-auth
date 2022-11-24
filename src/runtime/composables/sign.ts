@@ -66,7 +66,7 @@ export async function signIn<
 
   // At this point the request succeeded (i.e., it went through)
   const { error } = getQuery(data.url)
-  await _getSession()
+  await _getSession({ event: 'storage' })
 
   return {
     error,
