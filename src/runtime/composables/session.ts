@@ -8,7 +8,8 @@ import {
   getURL,
   joinPathToBase,
   navigateTo,
-  now
+  now,
+  useBroadcastChannel
 } from '../utils'
 import type { UseSessionOptions } from '../types'
 
@@ -89,10 +90,23 @@ export function useSession <R extends boolean = false> (options?: UseSessionOpti
   }
 }
 
-export function getSession () {
+export type GetSessionParams = {
+  event?: 'storage' | 'timer' | 'hidden' | string
+  triggerEvent?: boolean
+  broadcast?: boolean
+}
+
+export function getSession (params?: GetSessionParams) {
   return _fetch<Session>('session', {
     headers: useRequestHeaders(['cookie']) as HeadersInit
-  }).then(data => Object.keys(data).length > 0 ? data : null)
+  }).then((data) => {
+    if (params?.broadcast ?? true) {
+      const broadcast = useBroadcastChannel()
+      broadcast.post({ event: 'session', data: { trigger: 'getSession' } })
+    }
+
+    return Object.keys(data).length > 0 ? data : null
+  })
 }
 
 /**
