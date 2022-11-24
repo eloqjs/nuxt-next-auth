@@ -9,9 +9,8 @@ export default defineNuxtConfig({
       clientSecret: process.env.GITHUB_CLIENT_SECRET
     }
   },
-  modules: [
-    MyModule
-  ],
+  // @ts-expect-error See https://github.com/nuxt/framework/issues/8931
+  modules: [MyModule],
   auth: {
     providers: ['github', 'credentials']
   }
