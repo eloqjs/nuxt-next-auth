@@ -86,7 +86,7 @@ export function useSession <R extends boolean = false> (options?: UseSessionOpti
 
   return {
     data: readonly(session),
-    status: readonly(status)
+    status
   }
 }
 
