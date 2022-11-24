@@ -1,6 +1,6 @@
 import defu from 'defu'
 import type { NitroFetchRequest } from 'nitropack'
-import type { FetchOptions } from 'ofetch/dist/node'
+import type { FetchOptions } from 'ofetch'
 import { getURLWithBasePath } from '../utils'
 
 export const _fetch = <T = unknown, R extends NitroFetchRequest = NitroFetchRequest>(request: R, opts?: FetchOptions) => {
