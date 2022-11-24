@@ -22,10 +22,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
   console.log('[AUTH:SESSION]', process.server ? 'server' : 'client', session.value)
 
-  // Fetch the session only if not initialized yet.
-  if (!hasInitialSession) {
-    await _getSession()
-  }
+  await _getSession()
 
   // Listen for when the page is visible, if the user switches tabs
   // and makes our tab visible again, re-fetch the session, but only if
