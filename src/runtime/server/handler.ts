@@ -74,8 +74,6 @@ export async function getServerSession (
   event: H3Event,
   options: NextAuthOptions
 ): Promise<Session | null> {
-  options.secret = process.env.NEXTAUTH_SECRET
-
   const session = await NextAuthHandler<Session>({
     req: {
       host: getURL(event.node.req),
