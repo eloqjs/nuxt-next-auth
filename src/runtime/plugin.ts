@@ -1,8 +1,7 @@
 import { defineNuxtPlugin, useRuntimeConfig, useState } from '#app'
 import { Session } from 'next-auth'
 import { _getSession } from './composables/session'
-import { now } from './utils'
-import { useBroadcastChannel } from './utils/broadcast'
+import { now, useBroadcastChannel } from './utils'
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const { refetchOnWindowFocus, refetchInterval } = useRuntimeConfig().public.auth

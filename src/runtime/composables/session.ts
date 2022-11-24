@@ -8,10 +8,10 @@ import {
   getURL,
   joinPathToBase,
   navigateTo,
-  now
+  now,
+  useBroadcastChannel
 } from '../utils'
 import type { UseSessionOptions } from '../types'
-import { useBroadcastChannel } from '../utils/broadcast'
 
 type GetSessionEvent = 'storage' | 'visibilitychange' | 'poll'
 
