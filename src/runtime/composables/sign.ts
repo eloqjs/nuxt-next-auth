@@ -46,17 +46,13 @@ export async function signIn<
 
   const data = await _fetch<{ url: string }>(`${action}/${provider}`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
     params: authorizationParams as SearchParameters,
-    // @ts-expect-error
-    body: new URLSearchParams({
+    body: {
       ...options,
       csrfToken: await getCsrfToken(),
       callbackUrl,
       json: true
-    })
+    }
   })
 
   const broadcast = useBroadcastChannel()
@@ -90,15 +86,11 @@ export async function signOut <R extends boolean = true> (options?: SignOutParam
 
   const data = await _fetch<{ url: string }>('signout', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    // @ts-expect-error
-    body: new URLSearchParams({
+    body: {
       csrfToken: await getCsrfToken(),
       callbackUrl,
       json: true
-    })
+    }
   })
 
   const broadcast = useBroadcastChannel()

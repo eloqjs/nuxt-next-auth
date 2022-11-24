@@ -56,7 +56,7 @@ export function NuxtAuthHandler (options: NextAuthOptions) {
     if (redirect) {
       if (isMethod(event, 'POST')) {
         const body = await readBody(event)
-        if (body?.json !== 'true') { await sendRedirect(event, redirect, 302) }
+        if (body?.json !== true) { await sendRedirect(event, redirect, 302) }
 
         return {
           url: redirect
