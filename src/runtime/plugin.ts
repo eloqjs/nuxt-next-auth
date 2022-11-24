@@ -2,6 +2,7 @@ import { defineNuxtPlugin, useRuntimeConfig, useState } from '#app'
 import { Session } from 'next-auth'
 import { _getSession } from './composables/session'
 import { now } from './utils'
+import { useBroadcastChannel } from './utils/broadcast'
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const { refetchOnWindowFocus, refetchInterval } = useRuntimeConfig().public.auth
@@ -34,6 +35,12 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     document.addEventListener('visibilitychange', visibilityHandler, false)
   })
 
+  // Subscribe to broadcast
+  const broadcast = useBroadcastChannel()
+  const unsubscribeFromBroadcast = broadcast.receive(() =>
+    _getSession({ event: 'storage' })
+  )
+
   // Refetch interval
   let refetchIntervalTimer: NodeJS.Timer
 
@@ -47,6 +54,9 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   nuxtApp.vueApp.unmount = function () {
     // Clear visibility handler
     document.removeEventListener('visibilitychange', visibilityHandler, false)
+
+    // Unsubscribe from broadcast
+    unsubscribeFromBroadcast?.()
 
     // Clear refetch interval
     clearInterval(refetchIntervalTimer)

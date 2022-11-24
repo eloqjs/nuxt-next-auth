@@ -3,6 +3,7 @@ import type { SearchParameters } from 'ofetch'
 import { getQuery, withQuery } from 'ufo'
 import type { LiteralUnion, SignInAuthorizationParams, SignInOptions, SignOutParams } from '../types'
 import { _fetch, getURL, joinPathToBase, navigateTo } from '../utils'
+import { useBroadcastChannel } from '../utils/broadcast'
 import { getProviders } from './providers'
 import { getCsrfToken, _getSession } from './session'
 
@@ -59,6 +60,9 @@ export async function signIn<
     })
   })
 
+  const broadcast = useBroadcastChannel()
+  broadcast.post({ event: 'session', data: { trigger: 'signin' } })
+
   if (redirect || !isSupportingReturn) {
     const href = data.url ?? callbackUrl
     return navigateTo(href)
@@ -97,6 +101,9 @@ export async function signOut <R extends boolean = true> (options?: SignOutParam
       json: true
     })
   })
+
+  const broadcast = useBroadcastChannel()
+  broadcast.post({ event: 'session', data: { trigger: 'signout' } })
 
   if (redirect) {
     const url = data.url ?? callbackUrl
