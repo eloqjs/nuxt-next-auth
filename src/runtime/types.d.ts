@@ -1,3 +1,4 @@
+import type { ComputedRef, Ref } from '@vue/reactivity'
 import type { Session } from 'next-auth'
 import type { BuiltInProviderType, ProviderType } from 'next-auth/providers'
 
@@ -79,15 +80,11 @@ export interface SessionProviderProps {
 
 export type SessionStatus = 'authenticated' | 'unauthenticated' | 'loading'
 export type SessionData = Session | null | undefined
-export interface SessionState {
-  data: Session | null | undefined
-  status: 'authenticated' | 'unauthenticated' | 'loading'
-}
 
 export type SessionContextValue<R extends boolean = false> = R extends true
   ?
-  | { data: Ref<Session>; status: Ref<'authenticated'> }
-  | { data: Ref<null>; status: Ref<'loading'> }
+  | { data: Readonly<Ref<Session>>; readonly status: ComputedRef<'authenticated'> }
+  | { data: Readonly<Ref<null>>; readonly status: ComputedRef<'loading'> }
   :
-  | { data: Ref<Session>; status: Ref<'authenticated'> }
-  | { data: Ref<null>; status: Ref<'unauthenticated' | 'loading'> }
+  | { data: Readonly<Ref<Session>>; readonly  status: ComputedRef<'authenticated'> }
+  | { data: Readonly<Ref<null>>; readonly  status: ComputedRef<'unauthenticated' | 'loading'> }

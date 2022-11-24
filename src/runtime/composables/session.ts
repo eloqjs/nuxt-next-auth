@@ -1,8 +1,8 @@
 import { useRequestHeaders, useState } from '#app'
 import defu from 'defu'
-import { Session } from 'next-auth'
 import { withQuery } from 'ufo'
 import { computed, readonly } from 'vue'
+import type { Session } from 'next-auth'
 import {
   _fetch,
   getURL,
@@ -11,12 +11,12 @@ import {
   now,
   useBroadcastChannel
 } from '../utils'
-import type { UseSessionOptions } from '../types'
+import type { UseSessionOptions, SessionContextValue, SessionData, SessionStatus } from '../types'
 
 type GetSessionEvent = 'storage' | 'visibilitychange' | 'poll'
 
 export async function _getSession ({ event }: { event?: GetSessionEvent } = {}) {
-  const session = useState<Session | null | undefined>('auth:session')
+  const session = useState<SessionData>('auth:session')
   const loading = useState<boolean>('auth:loading')
   const lastSync = useState<number>('auth:lastSync')
 
@@ -63,10 +63,10 @@ export async function _getSession ({ event }: { event?: GetSessionEvent } = {}) 
  *
  * @see {@link https://next-auth.js.org/getting-started/client#usesession|Documentation}
  */
-export function useSession <R extends boolean = false> (options?: UseSessionOptions<R>) {
-  const session = useState<Session | null | undefined>('auth:session')
+export function useSession <R extends boolean = false> (options?: UseSessionOptions<R>): SessionContextValue<R> {
+  const session = useState<SessionData>('auth:session')
   const loading = useState<boolean>('auth:loading')
-  const status = computed(() => loading.value ? 'loading' : session.value ? 'authenticated' : 'unauthenticated')
+  const status = computed<SessionStatus>(() => loading.value ? 'loading' : session.value ? 'authenticated' : 'unauthenticated')
 
   const { required, onUnauthenticated } = defu(options, {
     required: false,
@@ -84,10 +84,7 @@ export function useSession <R extends boolean = false> (options?: UseSessionOpti
     onUnauthenticated()
   }
 
-  return {
-    data: readonly(session),
-    status
-  }
+  return { data: readonly(session), status } as SessionContextValue<R>
 }
 
 export type GetSessionParams = {

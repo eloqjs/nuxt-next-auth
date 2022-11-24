@@ -1,12 +1,12 @@
 import { defineNuxtPlugin, useRuntimeConfig, useState } from '#app'
-import { Session } from 'next-auth'
 import { _getSession } from './composables/session'
 import { now, useBroadcastChannel } from './utils'
+import type { SessionData } from './types'
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const { refetchOnWindowFocus, refetchInterval } = useRuntimeConfig().public.auth
 
-  const session = useState<Session | null | undefined>('auth:session', () => undefined)
+  const session = useState<SessionData>('auth:session', () => undefined)
 
   /**
    * If session was `null`, there was an attempt to fetch it,
