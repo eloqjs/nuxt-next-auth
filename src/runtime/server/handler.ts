@@ -25,7 +25,7 @@ export function NuxtAuthHandler (options: NextAuthOptions) {
     const { error, ...query } = getQuery(event)
 
     const req: RequestInternal | Request = {
-      host: process.env.NEXTAUTH_URL,
+      host: getURL(event.node.req),
       body: undefined,
       query,
       headers: event.node.req.headers,
@@ -78,7 +78,7 @@ export async function getServerSession (
 
   const session = await NextAuthHandler<Session>({
     req: {
-      host: process.env.NEXTAUTH_URL,
+      host: getURL(event.node.req),
       action: 'session',
       method: 'GET',
       cookies: parseCookies(event),
@@ -98,9 +98,12 @@ export async function getServerSession (
 /**
  * Get the decoded JWT token either from cookies or header (both are attempted).
  *
- * The only change from the original `getToken` implementation is that the `req` is not passed in, in favor of `event` being passed in. See https://next-auth.js.org/tutorials/securing-pages-and-api-routes#using-gettoken for further documentation.
+ * The only change from the original `getToken` implementation is that the `req` is not passed in, in favor of `event`
+ * being passed in. See https://next-auth.js.org/tutorials/securing-pages-and-api-routes#using-gettoken for further
+ * documentation.
  *
- * @param eventAndOptions Omit<GetTokenParams, 'req'> & { event: H3Event } The event to get the cookie or authorization header from that contains the JWT Token and options you want to alter token getting behavior.
+ * @param eventAndOptions Omit<GetTokenParams, 'req'> & { event: H3Event } The event to get the cookie or authorization
+ *   header from that contains the JWT Token and options you want to alter token getting behavior.
  */
 export const getToken = ({ event, secureCookie, ...rest }: Omit<GetTokenParams, 'req'> & { event: H3Event }) => _getToken({
   req: {
