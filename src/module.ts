@@ -39,7 +39,7 @@ export default defineNuxtModule<ModuleOptions>({
     setupPlugin()
 
     // Add composables
-    setupComposables(nuxt)
+    setupComposables()
 
     // Create virtual imports for server-side
     setupNitro(nuxt)

@@ -1,7 +1,6 @@
-import { addImportsDir, addPlugin, addTemplate, createResolver } from '@nuxt/kit'
+import { addImports, addPlugin, addTemplate, createResolver } from '@nuxt/kit'
 import type { Nuxt } from '@nuxt/schema'
 import defu from 'defu'
-import { joinURL } from 'ufo'
 import type { ModuleOptions } from './module'
 
 export function setupRuntimeConfig (nuxt: Nuxt, options: ModuleOptions) {
@@ -14,11 +13,23 @@ export function setupPlugin () {
   addPlugin(resolve('./runtime/plugin'))
 }
 
-export function setupComposables (nuxt: Nuxt) {
+export function setupComposables () {
   const { resolve } = createResolver(import.meta.url)
-
   const composables = resolve('./runtime/composables')
-  addImportsDir(composables)
+
+  addImports([
+    // Session
+    { name: 'useSession', from: resolve(composables, 'session') },
+    { name: 'getSession', from: resolve(composables, 'session') },
+    { name: 'getCsrfToken', from: resolve(composables, 'session') },
+
+    // Provider
+    { name: 'getProviders', from: resolve(composables, 'providers') },
+
+    // Sign
+    { name: 'signIn', from: resolve(composables, 'sign') },
+    { name: 'signOut', from: resolve(composables, 'sign') }
+  ])
 }
 
 export function setupNitro (nuxt: Nuxt) {
