@@ -1,10 +1,11 @@
-import { defineNuxtPlugin, useRuntimeConfig, useState } from '#app'
+import { addRouteMiddleware, defineNuxtPlugin, useRuntimeConfig, useState } from '#app'
 import { _getSession } from './composables/session'
 import { now, useBroadcastChannel } from './utils'
+import authMiddleware from './middleware/auth'
 import type { SessionData } from './types'
 
 export default defineNuxtPlugin(async (nuxtApp) => {
-  const { refetchOnWindowFocus, refetchInterval } = useRuntimeConfig().public.auth
+  const { refetchOnWindowFocus, refetchInterval, globalMiddleware } = useRuntimeConfig().public.auth
 
   const session = useState<SessionData>('auth:session', () => undefined)
 
@@ -67,4 +68,8 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     // Call original unmount
     _unmount()
   }
+
+  addRouteMiddleware('auth', authMiddleware, {
+    global: globalMiddleware
+  })
 })
