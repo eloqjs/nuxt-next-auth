@@ -1,6 +1,5 @@
 import { defineNuxtRouteMiddleware, navigateTo, useState } from '#app'
 import { withQuery } from 'ufo'
-import type { RouteLocationNormalized } from 'vue-router'
 import { useSession } from '../composables/session'
 import { joinPathToBase } from '../utils'
 

@@ -1,17 +1,8 @@
 import { useRequestHeaders, useState } from '#app'
-import defu from 'defu'
-import { withQuery } from 'ufo'
 import { computed, readonly } from 'vue'
 import type { Session } from 'next-auth'
-import {
-  _fetch,
-  getURL,
-  joinPathToBase,
-  navigateTo,
-  now,
-  useBroadcastChannel
-} from '../utils'
-import type { UseSessionOptions, SessionContextValue, SessionData, SessionStatus } from '../types'
+import { _fetch, now, useBroadcastChannel } from '../utils'
+import type { SessionContextValue, SessionData, SessionStatus } from '../types'
 
 type GetSessionEvent = 'storage' | 'visibilitychange' | 'poll' | 'initialize'
 
@@ -19,8 +10,6 @@ export async function _getSession ({ event }: { event?: GetSessionEvent } = {}) 
   const session = useState<SessionData>('auth:session')
   const loading = useState<boolean>('auth:loading')
   const lastSync = useState<number>('auth:lastSync')
-
-  console.log('[AUTH]:', 'Getting session...')
 
   try {
     const storageEvent = event === 'storage'
@@ -59,6 +48,7 @@ export async function _getSession ({ event }: { event?: GetSessionEvent } = {}) 
     lastSync.value = now()
     session.value = await getSession()
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('CLIENT_SESSION_ERROR', error as Error)
   } finally {
     loading.value = false

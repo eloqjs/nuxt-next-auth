@@ -1,6 +1,5 @@
-import type { BuiltInProviderType } from 'next-auth/providers'
-import type { ClientSafeProvider, LiteralUnion } from '../types'
 import { _fetch } from '../utils'
+import type { ClientSafeProvider, SupportedProviders } from '../types'
 
 /**
  * It calls `/api/auth/providers` and returns
@@ -11,5 +10,5 @@ import { _fetch } from '../utils'
  */
 
 export function getProviders () {
-  return _fetch<Record<LiteralUnion<BuiltInProviderType>, ClientSafeProvider>>('providers')
+  return _fetch<Record<SupportedProviders, ClientSafeProvider>>('providers')
 }

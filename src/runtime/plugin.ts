@@ -1,8 +1,8 @@
 import { addRouteMiddleware, defineNuxtPlugin, useRuntimeConfig, useState } from '#app'
 import { _getSession } from './composables/session'
 import { now, useBroadcastChannel } from './utils'
-import authMiddleware from './middleware/auth'
 import type { SessionData } from './types'
+import authMiddleware from './middleware/auth'
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const { refetchOnWindowFocus, refetchInterval, globalMiddleware } = useRuntimeConfig().public.auth
@@ -19,9 +19,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const lastSync = useState<number>('auth:lastSync', () => hasInitialSession ? now() : 0)
 
   /** If session was passed, initialize as not loading */
-  const loading = useState<boolean>('auth:loading', () => !hasInitialSession)
-
-  console.log('[AUTH:SESSION]', process.server ? 'server' : 'client', session.value)
+  useState<boolean>('auth:loading', () => !hasInitialSession)
 
   await _getSession({ event: 'initialize' })
 

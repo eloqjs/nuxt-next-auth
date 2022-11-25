@@ -1,8 +1,7 @@
-import type { BuiltInProviderType, RedirectableProviderType } from 'next-auth/providers'
-import type { SearchParameters } from 'ofetch'
 import { getQuery, withQuery } from 'ufo'
-import type { LiteralUnion, SignInAuthorizationParams, SignInOptions, SignOutParams } from '../types'
+import type { SearchParameters } from 'ofetch'
 import { _fetch, getURL, joinPathToBase, navigateTo, useBroadcastChannel } from '../utils'
+import type { SignInAuthorizationParams, SignInOptions, SignOutParams, SupportedProviders } from '../types'
 import { getProviders } from './providers'
 import { getCsrfToken, _getSession } from './session'
 
@@ -14,14 +13,8 @@ import { getCsrfToken, _getSession } from './session'
  * @see {@link https://next-auth.js.org/getting-started/client#signin|Documentation}
  */
 
-export async function signIn<
-  P extends RedirectableProviderType | undefined = undefined
-  > (
-  provider?: LiteralUnion<
-    P extends RedirectableProviderType
-      ? P | BuiltInProviderType
-      : BuiltInProviderType
-    >,
+export async function signIn (
+  provider?: SupportedProviders,
   options?: SignInOptions,
   authorizationParams?: SignInAuthorizationParams
 ) {

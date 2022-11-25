@@ -1,4 +1,4 @@
-import { now } from './session'
+import { now } from './date'
 
 export interface BroadcastMessage {
   event?: 'session'

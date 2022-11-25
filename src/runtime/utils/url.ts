@@ -1,8 +1,8 @@
-import { useRequestEvent, useRuntimeConfig } from '#app'
-import { navigateTo as _navigateTo, NavigateToOptions } from '#app/composables/router'
+import { useRequestEvent, useRuntimeConfig, navigateTo as _navigateTo } from '#app'
+import type { NavigateToOptions } from '#app/composables/router'
 import _getURL from 'requrl'
 import { joinURL, parseURL } from 'ufo'
-import { RouteLocationRaw } from 'vue-router'
+import type { RouteLocationRaw } from 'vue-router'
 
 export const getURL = (includePath?: boolean) => _getURL(useRequestEvent()?.node.req, includePath)
 export const getBasePath = () => useRuntimeConfig().public.auth.basePath
