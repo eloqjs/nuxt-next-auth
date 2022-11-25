@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-auth",
+  "name": "nuxt-nextauth",
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",

@@ -1,4 +1,5 @@
 import { defineNuxtModule } from '@nuxt/kit'
+import { name, version } from '../package.json'
 import { setupAliases, setupComposables, setupNitro, setupPlugin, setupRuntimeConfig, setupTypes } from './utils'
 
 export interface ModuleOptions {
@@ -17,11 +18,10 @@ export interface ModuleOptions {
   globalMiddleware: boolean
 }
 
-const PACKAGE_NAME = 'nuxt-auth'
-
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: PACKAGE_NAME,
+    name,
+    version,
     configKey: 'auth'
   },
   defaults: {
