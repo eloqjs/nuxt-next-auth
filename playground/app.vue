@@ -1,15 +1,7 @@
 <script lang="ts" setup>
-import { useSession, signIn, signOut, getSession, _getSession, useFetch, useRequestHeaders } from '#imports'
+import { useSession, signIn, signOut } from '#imports'
 
-// await getSession()
-// await _getSession()
 const { data, status } = useSession()
-
-// const providers = await getProviders()
-// const csrfToken = await getCsrfToken()
-
-// const headers = useRequestHeaders(['cookie'])
-// const { data: token } = useFetch('/api/token', { headers: { cookie: headers.cookie } })
 </script>
 
 <template>
@@ -34,16 +26,8 @@ const { data, status } = useSession()
         sign in (github)
       </button>
       <br>
-      <button @click="signIn(undefined, { callbackUrl: '/protected/inline' })">
-        sign in (with redirect to protected page)
-      </button>
-      <br>
       <button @click="signOut({ callbackUrl: '/signout' })">
         sign out
-      </button>
-      <br>
-      <button @click="getSession({ required: false })">
-        refresh session
       </button>
     </div>
   </div>
