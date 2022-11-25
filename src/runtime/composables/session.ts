@@ -63,26 +63,10 @@ export async function _getSession ({ event }: { event?: GetSessionEvent } = {}) 
  *
  * @see {@link https://next-auth.js.org/getting-started/client#usesession|Documentation}
  */
-export function useSession <R extends boolean = false> (options?: UseSessionOptions<R>): SessionContextValue<R> {
+export function useSession <R extends boolean = false> (): SessionContextValue<R> {
   const session = useState<SessionData>('auth:session')
   const loading = useState<boolean>('auth:loading')
   const status = computed<SessionStatus>(() => loading.value ? 'loading' : session.value ? 'authenticated' : 'unauthenticated')
-
-  const { required, onUnauthenticated } = defu(options, {
-    required: false,
-    onUnauthenticated: () => {
-      const url = withQuery(joinPathToBase('signin'), {
-        error: 'SessionRequired',
-        callbackUrl: getURL(true)
-      })
-      navigateTo(url, { external: true })
-    }
-  })
-
-  if (required && status.value === 'unauthenticated') {
-    loading.value = true
-    onUnauthenticated()
-  }
 
   return { data: readonly(session), status } as SessionContextValue<R>
 }
