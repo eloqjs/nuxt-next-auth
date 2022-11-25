@@ -13,7 +13,7 @@ import {
 } from '../utils'
 import type { UseSessionOptions, SessionContextValue, SessionData, SessionStatus } from '../types'
 
-type GetSessionEvent = 'storage' | 'visibilitychange' | 'poll'
+type GetSessionEvent = 'storage' | 'visibilitychange' | 'poll' | 'initialize'
 
 export async function _getSession ({ event }: { event?: GetSessionEvent } = {}) {
   const session = useState<SessionData>('auth:session')
@@ -40,12 +40,20 @@ export async function _getSession ({ event }: { event?: GetSessionEvent } = {}) 
       !event ||
       // If the client doesn't have a session then we don't need to call
       // the server to check if it does (if they have signed in via another
-      // tab or window that will come through as a "storage" event
-      // event anyway)
+      // tab or window that will come through as a "storage" event anyway)
       session.value === null ||
       // Bail out early if the client session is not stale yet
       now() < lastSync.value
     ) { return }
+
+    const initializeEvent = event === 'initialize'
+    // If the session was fetched on server-side, the original event couldn't be triggered,
+    // so we should replicate it in order to update other tabs/windows.
+    if (initializeEvent && process.client) {
+      const broadcast = useBroadcastChannel()
+      broadcast.post({ event: 'session', data: { trigger: 'getSession' } })
+      return
+    }
 
     // An event or session staleness occurred, update the client session.
     lastSync.value = now()

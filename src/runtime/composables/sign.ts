@@ -55,9 +55,6 @@ export async function signIn<
     }
   })
 
-  const broadcast = useBroadcastChannel()
-  broadcast.post({ event: 'session', data: { trigger: 'signin' } })
-
   if (redirect || !isSupportingReturn) {
     const href = data.url ?? callbackUrl
     return navigateTo(href)
