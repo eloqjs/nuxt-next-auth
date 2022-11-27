@@ -81,7 +81,7 @@ export default eventHandler(async (event) => {
 ## Why another package?
 
 Although there are similarities with [@sidebase/nuxt-auth][sidebase-nuxt-auth-src],
-different system design choices have been made, and therefore their usage are also different.
+different design choices have been made, and therefore their usage are also different.
 
 The most important differences are the usage of `useSession` and how we fetch the session.
 
