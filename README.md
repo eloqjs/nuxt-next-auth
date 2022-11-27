@@ -1,5 +1,12 @@
 # @eloqjs/nuxt-next-auth
 
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![Github Actions CI][github-actions-ci-src]][github-actions-ci-href]
+[![Codecov][codecov-src]][codecov-href]
+[![Contributions][contributions-src]][contributions-href]
+[![License][license-src]][license-href]
+
 ## Quick Start
 
 1. Install the package:
@@ -124,7 +131,27 @@ This project was based and inspired by some amazing packages!
 
 ## 📑 License
 
-[MIT License](https://github.com/eloqjs/nuxt-next-auth/blob/master/LICENSE)
+[MIT License][license-href]
+
+<!-- Badges -->
+
+[npm-version-src]: https://img.shields.io/npm/v/@eloqjs/nuxt-next-auth?logo=npm&style=flat-square
+[npm-version-href]: https://npmjs.com/package/@eloqjs/nuxt-next-auth/
+
+[npm-downloads-src]: https://img.shields.io/npm/dt/@eloqjs/nuxt-next-auth.svg?logo=npm&style=flat-square
+[npm-downloads-href]: https://npmjs.com/package/@eloqjs/nuxt-next-auth
+
+[github-actions-ci-src]: https://img.shields.io/github/workflow/status/eloqjs/nuxt-next-auth/ci?label=actions&logo=github&style=flat-square
+[github-actions-ci-href]: https://github.com/eloqjs/nuxt-next-auth/actions/workflows/ci.yml
+
+[codecov-src]: https://img.shields.io/codecov/c/github/eloqjs/nuxt-next-auth.svg?logo=codecov&style=flat-square
+[codecov-href]: https://codecov.io/gh/eloqjs/nuxt-next-auth
+
+[contributions-src]: https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square
+[contributions-href]: https://github.com/eloqjs/nuxt-next-auth/issues
+
+[license-src]: https://img.shields.io/github/license/eloqjs/nuxt-next-auth?style=flat-square
+[license-href]: https://github.com/eloqjs/nuxt-next-auth/blob/master/LICENSE
 
 <!-- Credits -->
 
