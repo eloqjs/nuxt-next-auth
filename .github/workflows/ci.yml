@@ -1,4 +1,4 @@
-name: nodejs CI
+name: ci
 
 on:
   push:
@@ -7,27 +7,33 @@ on:
     branches: [master]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  ci:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [16]
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16.14.2
-        uses: actions/setup-node@v3
+      - run: corepack enable
+      - uses: actions/setup-node@v3
         with:
-          node-version: 16.14.2
+          node-version: ${{ matrix.node }}
 
-      # Install locked dependencies and prepare types
-      - run: npm ci
-      - run: npm run dev:prepare
+      - name: 📦 Install dependencies
+        run: yarn install
 
-      # Check if build and package artifacts can still be generated
-      - run: npm run prepack
+      - name: 🚧 Set up project
+        run: yarn dev:prepare
 
-      # Check linting and typing
-      - run: npm run lint
-      - run: npm run types
+      - name: 🛠 Build project
+        run: yarn build
 
-      # Check building
-      - run: npm run build:module
-      - run: npm run build:playground
+      - name: 🧪 Test project
+        run: yarn lint && yarn types
+#        run: yarn test -- --coverage
+
+#      - name: 🟩 Coverage
+#        uses: codecov/codecov-action@v3
