@@ -1,34 +1,40 @@
-<script lang="ts" setup>
-import { useSession, signIn, signOut } from '#imports'
-
-const { data, status } = useSession()
-</script>
-
 <template>
   <div>
-    <h3>Authentication Overview</h3>
-    <p>See all available authentication & session information below. Navigate to different sub-pages to test out the app.</p>
-    <pre>Status: {{ status }}</pre>
-    <pre>Data: {{ data || 'no session data present, are you logged in?' }}</pre>
-    <!--    <pre>Decoded JWT token: {{ token || 'no token present, are you logged in?' }}</pre>-->
-
-    <h3>Sign In Methods</h3>
-    <div>
-      <button @click="signIn(undefined, { callbackUrl: '/' })">
-        sign in
-      </button>
-      <br>
-      <button @click="signIn('credentials', { callbackUrl: '/', username: 'jsmith', password: 'hunter2' })">
-        sign in (credential)
-      </button>
-      <br>
-      <button @click="signIn('github', { callbackUrl: '/' })">
-        sign in (github)
-      </button>
-      <br>
-      <button @click="signOut({ callbackUrl: '/signout' })">
-        sign out
-      </button>
-    </div>
+    <Header />
+    <NuxtPage />
+    <Footer />
   </div>
 </template>
+
+<style>
+body {
+  font-family: -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  padding: 0 1rem 1rem 1rem;
+  max-width: 680px;
+  margin: 0 auto;
+  background: #fff;
+  color: #333;
+}
+
+li,
+p {
+  line-height: 1.5rem;
+}
+
+a {
+  font-weight: 500;
+}
+
+hr {
+  border: 1px solid #ddd;
+}
+
+iframe {
+  background: #ccc;
+  border: 1px solid #ccc;
+  height: 10rem;
+  width: 100%;
+  border-radius: .5rem;
+  filter: invert(1);
+}
+</style>
