@@ -9,6 +9,6 @@
     "nuxt": "3.0.0"
   },
   "devDependencies": {
-    "nuxt-nextauth": "latest"
+    "@eloqjs/nuxt-next-auth": "latest"
   }
 }

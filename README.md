@@ -1,4 +1,4 @@
-# nuxt-nextauth
+# @eloqjs/nuxt-next-auth
 
 ## Quick Start
 
@@ -6,17 +6,17 @@
 
 ```bash
 # Using yarn
-yarn add --dev nuxt-nextauth
+yarn add --dev @eloqjs/nuxt-next-auth
 
 # Using npm
-npm install --save-dev nuxt-nextauth
+npm install --save-dev @eloqjs/nuxt-next-auth
 ```
 
 2. Add the package to your `nuxt.config.ts`:
 
 ```ts
 export default defineNuxtConfig({
-  modules: ['nuxt-nextauth'],
+  modules: ['@eloqjs/nuxt-next-auth'],
 })
 ```
 
@@ -97,7 +97,7 @@ const { data } = await useSession({ required: false })
 </script>
 ```
 
-In `nuxt-nextauth`, the session is fetched on load the auth plugin, which means it's fetched before you page is loaded.
+In `@eloqjs/nuxt-next-auth`, the session is fetched on load the auth plugin, which means it's fetched before you page is loaded.
 So we don't need to `await` the `useSession` as there are no requests being made. You can use `useSession`
 anywhere you want, it's just accessing data stored
 with [useState](https://nuxt.com/docs/getting-started/state-management#state-management).
@@ -124,7 +124,7 @@ This project was based and inspired by some amazing packages!
 
 ## 📑 License
 
-[MIT License](https://github.com/JoaoPedroAS51/nuxt-nextauth/blob/master/LICENSE)
+[MIT License](https://github.com/eloqjs/nuxt-next-auth/blob/master/LICENSE)
 
 <!-- Credits -->
 

@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-nextauth",
+  "name": "@eloqjs/nuxt-next-auth",
   "version": "0.0.1",
   "license": "MIT",
   "type": "module",

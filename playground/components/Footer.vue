@@ -3,7 +3,7 @@
     <hr>
     <ul class="navItems">
       <li class="navItem">
-        <a href="https://github.com/JoaoPedroAS51/nuxt-nextauth">GitHub</a>
+        <a href="https://github.com/eloqjs/nuxt-next-auth">GitHub</a>
       </li>
       <li class="navItem">
         <a href="https://next-auth.js.org">Next.js Documentation</a>
