@@ -17,10 +17,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - run: corepack enable
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
+      - uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ matrix.node-version }}-${{ runner.OS }}-build-${{ hashFiles('yarn.lock') }}
 
       - name: 📦 Install dependencies
         run: yarn install
@@ -29,7 +32,7 @@ jobs:
         run: yarn dev:prepare
 
       - name: 🛠 Build project
-        run: yarn build
+        run: yarn prepack
 
       - name: 🧪 Test project
         run: yarn lint && yarn types
