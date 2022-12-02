@@ -1,7 +1,7 @@
 import { defineNuxtRouteMiddleware, navigateTo, useState } from '#app'
-import { withQuery } from 'ufo'
+import type { NavigationFailure, RouteLocationRaw } from 'vue-router'
 import { useSession } from '../composables/session'
-import { joinPathToBase } from '../utils'
+import { signIn } from '../composables/sign'
 
 export default defineNuxtRouteMiddleware((to) => {
   if (to.meta.auth === false) {
@@ -17,11 +17,12 @@ export default defineNuxtRouteMiddleware((to) => {
     loading.value = true
 
     // Redirect to signIn
-    const url = withQuery(joinPathToBase('signin'), {
-      error: 'SessionRequired',
-      callbackUrl: to.path
-    })
-    return navigateTo(url, { external: true })
+    return signIn(undefined, {
+      callbackUrl: to.path,
+      redirect: true
+    }, {
+      error: 'SessionRequired'
+    }) as RouteLocationRaw | Promise<void | NavigationFailure>
   }
 
   if (status.value === 'authenticated' && pageIsInGuestMode) {
