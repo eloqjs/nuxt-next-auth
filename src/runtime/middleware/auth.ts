@@ -1,4 +1,4 @@
-import { defineNuxtRouteMiddleware, navigateTo, useState } from '#app'
+import { defineNuxtRouteMiddleware, navigateTo, useRuntimeConfig, useState } from '#app'
 import type { NavigationFailure, RouteLocationRaw } from 'vue-router'
 import { useSession } from '../composables/session'
 import { signIn } from '../composables/sign'
@@ -17,7 +17,7 @@ export default defineNuxtRouteMiddleware((to) => {
     loading.value = true
 
     // Redirect to signIn
-    return signIn(undefined, {
+    return signIn(useRuntimeConfig().public.auth.defaultProvider, {
       callbackUrl: to.path,
       redirect: true
     }, {

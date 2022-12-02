@@ -1,3 +1,4 @@
+import { useRuntimeConfig } from '#app'
 import { getQuery, withQuery } from 'ufo'
 import type { SearchParameters } from 'ofetch'
 import { _fetch, getURL, joinPathToBase, navigateTo, useBroadcastChannel } from '../utils'
@@ -24,6 +25,11 @@ export async function signIn (
   // 1. Lead to error page if no providers are available
   if (!providers) {
     return navigateTo(joinPathToBase('error'))
+  }
+
+  // Use default provider defined in nuxt.config
+  if (provider === 'default') {
+    provider = useRuntimeConfig().public.auth.defaultProvider
   }
 
   // 2. Redirect to the general sign-in page with all providers in case either no provider or no valid provider was selected

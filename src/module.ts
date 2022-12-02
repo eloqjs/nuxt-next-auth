@@ -16,6 +16,7 @@ export interface ModuleOptions {
    */
   refetchOnWindowFocus: boolean
   globalMiddleware: boolean
+  defaultProvider: string | undefined
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -29,7 +30,8 @@ export default defineNuxtModule<ModuleOptions>({
     providers: [],
     refetchInterval: 0,
     refetchOnWindowFocus: true,
-    globalMiddleware: false
+    globalMiddleware: false,
+    defaultProvider: undefined
   },
   setup (options, nuxt) {
     // Runtime config

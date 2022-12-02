@@ -17,7 +17,7 @@ export interface ClientSafeProvider {
   signinUrl: string
   callbackUrl: string
 }
-export type SupportedProviders = LiteralUnion<BuiltInProviderType>
+export type SupportedProviders =  'default' | LiteralUnion<BuiltInProviderType>
 
 export interface SignInOptions extends Record<string, unknown> {
   /**
