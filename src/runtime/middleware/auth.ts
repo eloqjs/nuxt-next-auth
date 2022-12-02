@@ -9,6 +9,7 @@ export default defineNuxtRouteMiddleware((to) => {
   }
 
   const pageIsInGuestMode = to.meta.auth === 'guest'
+  const { defaultProvider, homePage } = useRuntimeConfig().public.auth
   const { status } = useSession()
 
   if (status.value === 'unauthenticated' && !pageIsInGuestMode) {
@@ -17,7 +18,7 @@ export default defineNuxtRouteMiddleware((to) => {
     loading.value = true
 
     // Redirect to signIn
-    return signIn(useRuntimeConfig().public.auth.defaultProvider, {
+    return signIn(defaultProvider, {
       callbackUrl: to.path,
       redirect: true
     }, {
@@ -27,6 +28,6 @@ export default defineNuxtRouteMiddleware((to) => {
 
   if (status.value === 'authenticated' && pageIsInGuestMode) {
     // Redirect to home
-    return navigateTo('/')
+    return navigateTo(homePage)
   }
 })
