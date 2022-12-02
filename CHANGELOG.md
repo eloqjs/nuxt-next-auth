@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0](https://github.com/eloqjs/nuxt-next-auth/compare/v0.0.1...v0.1.0) (2022-12-02)
+
+
+### Features
+
+* add `defaultProvider` option ([0c75d33](https://github.com/eloqjs/nuxt-next-auth/commit/0c75d332591b70f4c1bb5f4c2721d0b2a799cacf))
+* add `homePage` option ([7667903](https://github.com/eloqjs/nuxt-next-auth/commit/7667903038f8b9b8cb0495bbe35f65b768f0d9b4))
+
 ## 0.0.1 (2022-11-27)
 
 
